@@ -1,7 +1,10 @@
 package praktikum;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class RegisterPage {
     private final WebDriver driver;
@@ -17,6 +20,13 @@ public class RegisterPage {
         this.driver = driver;
     }
 
+    @Step("Ожидание появления формы входа")
+    public void waitForLoginForm() {
+        new WebDriverWait(driver, 10)
+                .until(ExpectedConditions.urlContains("/login"));
+    }
+
+    @Step("Регистрация пользователя")
     public void register(String name, String email, String password) {
         driver.findElement(nameField).sendKeys(name);
         driver.findElement(emailField).sendKeys(email);
@@ -24,10 +34,12 @@ public class RegisterPage {
         driver.findElement(registerButton).click();
     }
 
+    @Step("Проверка появления ошибки 'Некорректный пароль'")
     public boolean isPasswordErrorDisplayed() {
         return driver.findElement(passwordError).isDisplayed();
     }
 
+    @Step("Клик по кнопке 'Войти' на странице регистрации")
     public void clickLoginLink() {
         driver.findElement(loginLink).click();
     }

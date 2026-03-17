@@ -1,5 +1,6 @@
 package praktikum;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -7,28 +8,34 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ProfilePage {
     private final WebDriver driver;
+    private final WebDriverWait wait;
 
-    private final By logoutButton = By.xpath(".//button[text()='Выход']");
-    private final By constructorLink = By.xpath(".//p[text()='Конструктор']");
-    private final By logoLink = By.xpath(".//div[contains(@class, 'AppHeader_header__logo')]");
+    private final By logoutButton = By.xpath("//button[text()='Выход']");
+    private final By constructorLink = By.xpath("//p[contains(text(),'Конструктор')]");
+    private final By logoLink = By.xpath("//div[contains(@class, 'AppHeader_header__logo')]/a");
 
     public ProfilePage(WebDriver driver) {
         this.driver = driver;
+        this.wait = new WebDriverWait(driver, 10);
     }
 
+    @Step("Ожидание загрузки страницы профиля")
     public void waitForLoad() {
-        new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(logoutButton));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(logoutButton));
     }
 
+    @Step("Нажатие кнопки 'Выход'")
     public void clickLogout() {
-        driver.findElement(logoutButton).click();
+        wait.until(ExpectedConditions.elementToBeClickable(logoutButton)).click();
     }
 
+    @Step("Переход в 'Конструктор'")
     public void clickConstructor() {
-        driver.findElement(constructorLink).click();
+        wait.until(ExpectedConditions.elementToBeClickable(constructorLink)).click();
     }
 
+    @Step("Клик по логотипу")
     public void clickLogo() {
-        driver.findElement(logoLink).click();
+        wait.until(ExpectedConditions.elementToBeClickable(logoLink)).click();
     }
 }
