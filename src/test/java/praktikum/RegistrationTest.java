@@ -6,6 +6,8 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Test;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
+
 import static org.junit.Assert.assertTrue;
 
 public class RegistrationTest extends BaseTest {
@@ -21,7 +23,7 @@ public class RegistrationTest extends BaseTest {
         RegisterPage registerPage = new RegisterPage(driver);
         String email = RandomStringUtils.randomAlphanumeric(10).toLowerCase() + "@yandex.ru";
         registerPage.register("Ivan", email, "password123");
-        new WebDriverWait(driver, 10)
+        new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.urlContains("/login"));
         assertTrue("Не отображается форма входа после регистрации",
                 loginPage.isLoginHeaderDisplayed());

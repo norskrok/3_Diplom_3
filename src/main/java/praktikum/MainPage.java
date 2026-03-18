@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 
 public class MainPage {
     private final WebDriver driver;
@@ -25,7 +26,7 @@ public class MainPage {
 
     @Step("Ожидание закрытия модального окна")
     public void waitForModalToDisappear() {
-        new WebDriverWait(driver, 10)
+        new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.invisibilityOfElementLocated(modalOverlay));
     }
 
@@ -46,7 +47,7 @@ public class MainPage {
     @Step("Проверка видимости кнопки 'Оформить заказ'")
     public boolean isOrderButtonVisible() {
         try {
-            return new WebDriverWait(driver, 10)
+            return new WebDriverWait(driver, Duration.ofSeconds(10))
                     .until(ExpectedConditions.visibilityOfElementLocated(orderButton)).isDisplayed();
         } catch (Exception e) {
             return false;
@@ -64,7 +65,7 @@ public class MainPage {
 
     @Step("Получение названия активного раздела конструктора")
     public String getActiveTabName() {
-        return new WebDriverWait(driver, 5)
+        return new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.visibilityOfElementLocated(activeTab))
                 .getText();
     }

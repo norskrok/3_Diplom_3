@@ -37,9 +37,10 @@ public class BaseTest {
     }
 
     public void setUpChrome() {
-        WebDriverManager.chromedriver().browserVersion("146.0.7680.80").setup();
+        WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
+        options.addArguments("--headless=new"); 
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--no-sandbox");
         driver = new ChromeDriver(options);
